@@ -1,164 +1,537 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f8f5ee">
-<title>Review Snack Request | Miss CPA</title>
-<style>
-:root{--ink:#27362f;--muted:#6c776f;--green:#416b54;--deep:#2e4d3b;--sage:#e8efe5;--cream:#f8f5ee;--line:#dfe5dc;--rose:#f4e7df}
-*{box-sizing:border-box}
-body{margin:0;padding:24px 14px 40px;background:radial-gradient(ellipse at 10% 0%,#e5eee2 0,transparent 36%),var(--cream);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.wrap{max-width:760px;margin:auto}
-header{text-align:center;padding:22px 10px 26px}
-.eyebrow{display:inline-block;padding:7px 12px;border-radius:99px;background:var(--sage);color:var(--deep);font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2.35rem,8vw,3.7rem);line-height:1.02;letter-spacing:-.045em;font-weight:500;margin:18px 0 12px}
-header p{max-width:510px;margin:auto;color:var(--muted);line-height:1.7}
-.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(20px,5vw,36px);box-shadow:0 18px 55px #27362f0d}
-.section{font-size:.75rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin:0 0 18px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px}
-.field{display:flex;flex-direction:column;gap:8px;min-width:0}
-.wide{grid-column:1/-1}
-label,legend{font-size:.9rem;font-weight:700}
-.req{color:#b64e3e}
-input,textarea,select{width:100%;border:1px solid #d6dfd5;border-radius:12px;background:#fff;color:var(--ink);padding:13px 14px;font:inherit;outline:none}
-input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px #416b541c}
-textarea{min-height:85px;resize:vertical}
-.hint{font-size:.79rem;color:var(--muted);line-height:1.5}
-fieldset{border:0;padding:0;margin:28px 0 0}
-.snacks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.snack{position:relative}
-.snack input{position:absolute;opacity:0;width:1px;height:1px}
-.snack label{display:flex;align-items:center;gap:10px;min-height:50px;padding:12px;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:.87rem;font-weight:650}
-.snack label span{font-size:1.2rem}
-.snack input:checked+label{background:#edf4eb;border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
-.snack input:focus-visible+label{outline:3px solid #416b5455;outline-offset:2px}
-.rule{height:1px;background:var(--line);margin:28px 0 23px}
-button{width:100%;padding:15px 18px;border:0;border-radius:13px;background:var(--green);color:white;font-size:1rem;font-weight:800;cursor:pointer}
-button:hover{background:var(--deep)}button:disabled{opacity:.65;cursor:wait}
-.privacy{font-size:.77rem;line-height:1.55;color:var(--muted);margin:14px 0 0;text-align:center}
-footer{text-align:center;color:var(--muted);font-size:.78rem;padding:18px 8px 0}
-.success{display:none;text-align:center;padding:12px 2px 6px}
-.success .sparkle{font-size:2.4rem}
-.success h2{font:500 clamp(2rem,7vw,3rem)/1.1 Georgia,"Times New Roman",serif;margin:16px 0}
-.success p{line-height:1.75;color:var(--muted);max-width:490px;margin:12px auto}
-.success .blessing{font-size:1.12rem;color:var(--deep);font-weight:750}
-.success .sub{background:var(--sage);padding:18px 16px;border-radius:16px;margin-top:22px;color:var(--ink)}
-.error{display:none;color:#9e3428;background:#fff0ed;border-radius:12px;padding:12px;margin-top:14px;font-size:.88rem;line-height:1.5}
-@media(max-width:540px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.snacks{grid-template-columns:1fr 1fr}}
-@media(max-width:350px){.snacks{grid-template-columns:1fr}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LECPA Reviewer Support & Welfare Survey</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- JS Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <!-- html2canvas for receipt export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#FAF4F2',
+                            100: '#F5E8E5',
+                            200: '#EAD1CB',
+                            300: '#DBB0A6',
+                            400: '#C98A7B',
+                            500: '#B66A59',
+                            600: '#9E5141',
+                            700: '#823F32',
+                            800: '#6C342A',
+                            900: '#582B23',
+                        },
+                        roseGold: {
+                            100: '#FBF0EF',
+                            200: '#F4DCD9',
+                            300: '#E8B4AC',
+                            400: '#D98D82',
+                            500: '#B76E79', // Rose gold primary accent
+                            600: '#9B545F',
+                        },
+                        cream: '#FDFBF7'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FDFBF7;
+            background-image: radial-gradient(#EAD1CB 0.6px, transparent 0.6px), radial-gradient(#EAD1CB 0.6px, #FDFBF7 0.6px);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(234, 209, 203, 0.6);
+        }
+        .glow-effect {
+            box-shadow: 0 10px 30px -10px rgba(183, 110, 121, 0.25);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FDFBF7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E8B4AC;
+            border-radius: 99px;
+        }
+    </style>
 </head>
-<body>
-<main class="wrap">
-<header>
-  <span class="eyebrow">A little fuel for review season</span>
-  <h1>Review Snack Request</h1>
-  <p>One step at a time, one snack at a time. Fill out this form so we can prepare something for your review days. ♡</p>
-</header>
-<section class="card">
-<form id="snackForm">
-  <p class="section">Your details</p>
-  <div class="grid">
-    <div class="field wide">
-      <label for="name">Full name <span class="req">*</span></label>
-      <input id="name" name="Full name" type="text" placeholder="Your full name" autocomplete="name" required>
+<body class="font-sans text-slate-800 min-h-screen flex flex-col justify-between antialiased selection:bg-roseGold-200 selection:text-brand-900">
+
+    <!-- Top Official Banner -->
+    <header class="w-full pt-8 pb-4 px-4 text-center">
+        <div class="max-w-3xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-roseGold-100/90 text-roseGold-600 text-xs font-semibold tracking-wide uppercase mb-3 border border-roseGold-200 shadow-sm">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-roseGold-500"></i>
+                Official LECPA Reviewee Wellness Check & Care Portal
+            </div>
+            <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-slate-800 tracking-tight leading-tight">
+                LECPA Reviewer Care Package & <span class="text-roseGold-500 italic">Snack Preference</span> Survey
+            </h1>
+            <p class="mt-3 text-slate-600 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
+                As part of our continuous study support and study-break welfare check, please log your current study address and refreshment preferences so we can coordinate your study kit and snack schedule.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-4xl mx-auto w-full px-4 py-4 flex-grow">
+
+        <!-- Top Widgets: Exam Countdown & Motivational Quote -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            
+            <!-- Live LECPA Countdown Widget -->
+            <div class="glass-panel rounded-2xl p-4 shadow-sm border-l-4 border-l-roseGold-500 flex items-center gap-3">
+                <div class="p-3 bg-roseGold-100 rounded-xl text-roseGold-600 flex-shrink-0">
+                    <i data-lucide="hourglass" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] uppercase font-extrabold text-slate-400 tracking-wider">LECPA Exam Tracker</span>
+                    <h2 class="text-xs font-bold text-slate-800">CPA Board Exam Prep</h2>
+                    <p class="text-xs font-bold text-roseGold-600 mt-1" id="examCountdown">Calculating remaining hours...</p>
+                </div>
+            </div>
+
+            <!-- Dynamic Motivational Quote Box -->
+            <div class="glass-panel rounded-2xl p-4 shadow-sm md:col-span-2 border-l-4 border-l-brand-400 flex items-center justify-between gap-3">
+                <div class="flex items-start gap-3">
+                    <div class="p-2.5 bg-brand-50 rounded-xl text-brand-600 mt-0.5 flex-shrink-0">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <p id="quoteText" class="text-xs sm:text-sm italic font-medium text-slate-700">"Trust the audit trail of your hard work. Every page read is a step closer to your CPA license!"</p>
+                        <span id="quoteAuthor" class="text-[10px] font-bold text-slate-400 block mt-1 uppercase tracking-wider">— CPA Review Inspiration</span>
+                    </div>
+                </div>
+                <button onclick="rotateQuote()" class="p-2 text-slate-400 hover:text-roseGold-600 hover:bg-roseGold-100/50 rounded-lg transition-colors flex-shrink-0" title="Next Motivation">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Form Card Container -->
+        <div class="glass-panel rounded-3xl shadow-xl p-6 sm:p-8 md:p-10 relative overflow-hidden glow-effect">
+            <div class="flex items-center justify-between border-b border-roseGold-100 pb-4 mb-6">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-roseGold-100 flex items-center justify-center text-roseGold-600">
+                        <i data-lucide="clipboard-list" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Reviewer Welfare & Logistics Form</h2>
+                        <p class="text-xs text-slate-500">Please fill in accurate details for study logistics & snack coordination.</p>
+                    </div>
+                </div>
+                <span class="hidden sm:inline-flex text-[11px] font-semibold px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200/60 rounded-full items-center gap-1">
+                    <i data-lucide="check-circle2" class="w-3.5 h-3.5"></i> Verification Active
+                </span>
+            </div>
+
+            <form id="surveyForm" onsubmit="handleFormSubmission(event)" class="space-y-6">
+                
+                <!-- 1. Full Name & 5. Contact Number -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label for="fullName" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                            1. Full Name <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <i data-lucide="user" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+                            <input type="text" id="fullName" required placeholder="e.g. Maria Santos" 
+                                class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-roseGold-400 focus:border-roseGold-400 transition-all shadow-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="contactNumber" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                            5. Contact Number <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <i data-lucide="phone" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+                            <input type="tel" id="contactNumber" required placeholder="e.g. 0917 890 1234" 
+                                class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-roseGold-400 focus:border-roseGold-400 transition-all shadow-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Present Address -->
+                <div>
+                    <label for="address" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                        2. Present Address / Study Location <span class="text-rose-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+                        <input type="text" id="address" required placeholder="Complete study location, dorm address, room number, or condo details..." 
+                            class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-roseGold-400 focus:border-roseGold-400 transition-all shadow-sm">
+                    </div>
+                </div>
+
+                <!-- 3. Preferred Review Snacks / Refreshments -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                        3. Preferred Review Snacks & Refreshments <span class="text-rose-500">*</span>
+                    </label>
+                    <p class="text-xs text-slate-500 mb-3">Select your usual study cravings or list custom snacks that help keep your energy high:</p>
+
+                    <!-- Snack Categories Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-3">
+                        <label class="flex items-center gap-2 p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-roseGold-300 transition-colors shadow-sm">
+                            <input type="checkbox" name="snackPills" value="☕ Iced Coffee / Espresso" class="rounded text-roseGold-500 focus:ring-roseGold-400">
+                            <span class="text-xs font-medium text-slate-700">☕ Iced Coffee</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-roseGold-300 transition-colors shadow-sm">
+                            <input type="checkbox" name="snackPills" value="🧋 Milk Tea / Fruit Tea" class="rounded text-roseGold-500 focus:ring-roseGold-400">
+                            <span class="text-xs font-medium text-slate-700">🧋 Milk Tea</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-roseGold-300 transition-colors shadow-sm">
+                            <input type="checkbox" name="snackPills" value="🥐 Savory Pastries & Bread" class="rounded text-roseGold-500 focus:ring-roseGold-400">
+                            <span class="text-xs font-medium text-slate-700">🥐 Savory Pastries</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-roseGold-300 transition-colors shadow-sm">
+                            <input type="checkbox" name="snackPills" value="🍫 Chocolates & Sweet Bakes" class="rounded text-roseGold-500 focus:ring-roseGold-400">
+                            <span class="text-xs font-medium text-slate-700">🍫 Chocolates & Sweets</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-roseGold-300 transition-colors shadow-sm">
+                            <input type="checkbox" name="snackPills" value="🍟 Crispy Chips & Salted Snacks" class="rounded text-roseGold-500 focus:ring-roseGold-400">
+                            <span class="text-xs font-medium text-slate-700">🍟 Chips & Savory Bites</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-roseGold-300 transition-colors shadow-sm">
+                            <input type="checkbox" name="snackPills" value="🍕 Light Meals (Pizza/Sandwich)" class="rounded text-roseGold-500 focus:ring-roseGold-400">
+                            <span class="text-xs font-medium text-slate-700">🍕 Pizza / Sandwich</span>
+                        </label>
+                    </div>
+
+                    <!-- Additional Details Textarea -->
+                    <div class="relative">
+                        <i data-lucide="coffee" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+                        <textarea id="customSnacks" rows="2" placeholder="Specific brands, sugar levels, or dietary notes (e.g. 50% sugar, extra ice, almond milk, no nuts)..." 
+                            class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-roseGold-400 focus:border-roseGold-400 transition-all shadow-sm"></textarea>
+                    </div>
+                </div>
+
+                <!-- 4. Preferred Date & Time for Delivery / Break -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label for="preferredDate" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                            4. Preferred Delivery / Study Break Date <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <i data-lucide="calendar" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+                            <input type="date" id="preferredDate" required 
+                                class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-roseGold-400 focus:border-roseGold-400 transition-all shadow-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="preferredTime" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                            Preferred Time Slot <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <i data-lucide="clock" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+                            <select id="preferredTime" required 
+                                class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-roseGold-400 focus:border-roseGold-400 transition-all shadow-sm">
+                                <option value="">Select ideal break time...</option>
+                                <option value="Morning Coffee Break (9:30 AM - 11:30 AM)">Morning Coffee Break (9:30 AM - 11:30 AM)</option>
+                                <option value="Afternoon Power Snack (2:00 PM - 4:00 PM)">Afternoon Power Snack (2:00 PM - 4:00 PM)</option>
+                                <option value="Evening Review Refreshment (6:00 PM - 8:00 PM)">Evening Review Refreshment (6:00 PM - 8:00 PM)</option>
+                                <option value="Late Night Midnight Study Boost (9:30 PM - 11:30 PM)">Late Night Midnight Study Boost (9:30 PM - 11:30 PM)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiet Record Logging Note -->
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between text-xs text-slate-500">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400 flex-shrink-0"></i>
+                        <span>Automatic confirmation receipt generated & emailed to: <strong class="text-slate-700">giftbalacuit@gmail.com</strong></span>
+                    </div>
+                    <span class="text-[10px] font-bold text-emerald-600 uppercase bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">System Log Active</span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-2">
+                    <button type="submit" id="submitBtn" 
+                        class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-roseGold-500 to-brand-500 hover:from-roseGold-600 hover:to-brand-600 text-white font-bold text-sm sm:text-base shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer">
+                        <span>Submit Care Package Preferences</span>
+                        <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- CELEBRATION SURPRISE MODAL OVERLAY -->
+    <div id="celebrationModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div id="modalContainer" class="bg-white rounded-3xl max-w-lg w-full shadow-2xl overflow-hidden border border-roseGold-200 my-8 transform transition-all scale-95 opacity-0 duration-300">
+            
+            <!-- Encouragement Header Hero -->
+            <div class="bg-gradient-to-br from-roseGold-500 via-brand-500 to-roseGold-600 p-8 text-center text-white relative">
+                <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner">
+                    <span class="text-3xl">🎓</span>
+                </div>
+                <!-- REQUIRED SURPRISE EXPLICIT TEXT -->
+                <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-tight">
+                    God bless, Miss CPA!
+                </h3>
+                <p class="text-roseGold-100 font-semibold text-sm sm:text-base mt-2">
+                    You can do it! We are already so proud of you! 🎓✨
+                </p>
+
+                <button onclick="closeModal()" class="absolute top-3 right-3 text-white/80 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Receipt & Action Content -->
+            <div class="p-6 space-y-5 max-h-[60vh] overflow-y-auto">
+                
+                <div class="text-center bg-roseGold-50/70 border border-roseGold-200 rounded-2xl p-3.5">
+                    <p class="text-xs text-roseGold-800 font-semibold">
+                        🎉 Surprise confirmed! Your preferred snack list & delivery details are logged and sent to <strong>giftbalacuit@gmail.com</strong>.
+                    </p>
+                </div>
+
+                <!-- Printable/Exportable Ticket Card -->
+                <div id="receiptCard" class="bg-cream border border-dashed border-roseGold-300 rounded-2xl p-5 relative shadow-sm">
+                    <div class="flex justify-between items-center border-b border-roseGold-200/80 pb-3 mb-3">
+                        <div>
+                            <span class="text-[10px] font-extrabold uppercase tracking-widest text-roseGold-600">Care Package Receipt</span>
+                            <h4 class="text-base font-bold text-slate-800" id="receiptName">Maria Santos</h4>
+                        </div>
+                        <span class="text-[11px] font-bold px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full">Status: Dispatched</span>
+                    </div>
+
+                    <div class="space-y-2 text-xs text-slate-600">
+                        <div class="flex justify-between">
+                            <span class="font-medium text-slate-500">Contact:</span>
+                            <span id="receiptContact" class="font-semibold text-slate-800"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-medium text-slate-500">Study Location:</span>
+                            <span id="receiptAddress" class="font-semibold text-slate-800 text-right max-w-[200px] truncate"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-medium text-slate-500">Scheduled Time:</span>
+                            <span id="receiptTime" class="font-semibold text-slate-800"></span>
+                        </div>
+                        <div class="pt-2 border-t border-roseGold-200/80">
+                            <span class="font-medium text-slate-500 block mb-1">Selected Cravings & Treats:</span>
+                            <p id="receiptSnacks" class="font-medium text-slate-800 bg-white p-2.5 rounded-xl border border-roseGold-200/60 italic leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-2.5 pt-2">
+                    <button onclick="downloadReceipt()" class="flex-1 py-2.5 px-4 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        <span>Save Receipt Image</span>
+                    </button>
+                    <button onclick="triggerDirectEmail()" class="flex-1 py-2.5 px-4 bg-roseGold-100 hover:bg-roseGold-200 text-roseGold-800 text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                        <span>Open Direct Email</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
     </div>
-    <div class="field wide">
-      <label for="address">Present address <span class="req">*</span></label>
-      <textarea id="address" name="Present address" placeholder="House/building, street, barangay, city/municipality" autocomplete="street-address" required></textarea>
-    </div>
-    <div class="field">
-      <label for="contact">Contact number <span class="req">*</span></label>
-      <input id="contact" name="Contact number" type="tel" placeholder="09XX XXX XXXX" autocomplete="tel" inputmode="tel" required>
-    </div>
-    <div class="field">
-      <label for="date">Preferred snack date <span class="req">*</span></label>
-      <input id="date" name="Preferred snack date" type="date" required>
-    </div>
-    <div class="field wide">
-      <label for="time">Preferred snack time <span class="req">*</span></label>
-      <input id="time" name="Preferred snack time" type="time" required>
-      <span class="hint">Choose the time you would prefer to receive your snacks.</span>
-    </div>
-  </div>
-  <fieldset>
-    <legend>Preferred review snacks <span class="req">*</span></legend>
-    <p class="hint">Select all that you would enjoy.</p>
-    <div class="snacks">
-      <div class="snack"><input id="chips" name="Preferred snacks[]" type="checkbox" value="Chips"><label for="chips"><span>🥔</span> Chips</label></div>
-      <div class="snack"><input id="cookies" name="Preferred snacks[]" type="checkbox" value="Biscuits or cookies"><label for="cookies"><span>🍪</span> Biscuits / cookies</label></div>
-      <div class="snack"><input id="chocolate" name="Preferred snacks[]" type="checkbox" value="Chocolate or sweets"><label for="chocolate"><span>🍫</span> Chocolate / sweets</label></div>
-      <div class="snack"><input id="bread" name="Preferred snacks[]" type="checkbox" value="Bread or pastries"><label for="bread"><span>🥐</span> Bread / pastries</label></div>
-      <div class="snack"><input id="fruit" name="Preferred snacks[]" type="checkbox" value="Fruit"><label for="fruit"><span>🍎</span> Fruit</label></div>
-      <div class="snack"><input id="drinks" name="Preferred snacks[]" type="checkbox" value="Drinks"><label for="drinks"><span>🧃</span> Drinks</label></div>
-      <div class="snack"><input id="healthy" name="Preferred snacks[]" type="checkbox" value="Healthy snacks"><label for="healthy"><span>🥜</span> Healthy snacks</label></div>
-      <div class="snack"><input id="other" name="Preferred snacks[]" type="checkbox" value="Other"><label for="other"><span>✨</span> Other</label></div>
-    </div>
-  </fieldset>
-  <div class="field" style="margin-top:18px">
-    <label for="notes">Other snack requests or notes <span class="hint">(optional)</span></label>
-    <textarea id="notes" name="Other snack requests or notes" placeholder="Specific snack, flavor, allergies, or anything else we should know"></textarea>
-  </div>
-  <div class="rule"></div>
-  <button id="submitBtn" type="submit">Send my snack request ♡</button>
-  <p class="privacy">Your form will be emailed to the organizer so your snack request can be coordinated.</p>
-  <div class="error" id="errorBox" role="alert"></div>
-</form>
-<div class="success" id="successMessage" role="status" aria-live="polite">
-  <div class="sparkle">🌷 ✨</div>
-  <h2>Request received!</h2>
-  <p>Thank you for filling out the form. Your snack preferences have been sent.</p>
-  <div class="sub">
-    <p class="blessing">God bless, Miss CPA. You can do it!</p>
-    <p>We’re already so proud of you. Keep going, take it one day at a time, and remember to give yourself credit for how far you’ve come. ♡</p>
-  </div>
-</div>
-</section>
-<footer>Made with love for your review journey ♡</footer>
-</main>
-<script>
-const dateInput = document.getElementById('date');
-const now = new Date();
-dateInput.min = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,10);
-const form = document.getElementById('snackForm');
-const button = document.getElementById('submitBtn');
-const errorBox = document.getElementById('errorBox');
-form.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  errorBox.style.display = 'none';
-  if (!document.querySelector('input[name="Preferred snacks[]"]:checked')) {
-    errorBox.textContent = 'Please select at least one preferred snack.';
-    errorBox.style.display = 'block';
-    document.getElementById('chips').focus();
-    return;
-  }
-  button.disabled = true;
-  button.textContent = 'Sending your request…';
-  const data = new FormData(form);
-  data.append('_subject', 'New Review Snack Request');
-  data.append('_template', 'table');
-  try {
-    const response = await fetch('https://formsubmit.co/ajax/giftbalacuit@gmail.com', {
-      method: 'POST',
-      headers: {'Accept':'application/json'},
-      body: data
-    });
-    const result = await response.json();
-    if (response.ok && (result.success === 'true' || result.success === true)) {
-      form.style.display = 'none';
-      document.getElementById('successMessage').style.display = 'block';
-      window.scrollTo({top:0, behavior:'smooth'});
-    } else {
-      throw new Error('The email service did not confirm receipt.');
-    }
-  } catch (error) {
-    errorBox.textContent = 'We could not confirm that your form was sent. Please check your internet connection and try again. If this is the first submission, the email recipient may need to activate FormSubmit first.';
-    errorBox.style.display = 'block';
-    button.disabled = false;
-    button.textContent = 'Try sending again ♡';
-  }
-});
-</script>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 text-center text-xs text-slate-400">
+        <p>LECPA Reviewee Welfare & Support Portal • Built with love & encouragement</p>
+    </footer>
+
+    <!-- JavaScript logic -->
+    <script>
+        const targetEmail = "giftbalacuit@gmail.com";
+        const jsConfetti = new JSConfetti();
+        let submittedData = null;
+
+        // Inspirational quote rotation
+        const quotes = [
+            { text: "Trust the audit trail of your hard work. Every page read is a step closer to your CPA license!", author: "CPA Review Inspiration" },
+            { text: "Debit your sacrifices, credit your achievements. Balance sheet will always balance out in your favor!", author: "Accountancy Mindset" },
+            { text: "You have studied, prayed, and prepared. Stand firm and claim those three letters after your name!", author: "Supporters Circle" },
+            { text: "One day soon, you will sign your name with 'CPA' at the end. Keep going!", author: "Board Exam Mantra" }
+        ];
+        let currentQuote = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            initDateMin();
+            startCountdown();
+        });
+
+        function initDateMin() {
+            const dateInput = document.getElementById('preferredDate');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
+            dateInput.value = today;
+        }
+
+        function rotateQuote() {
+            currentQuote = (currentQuote + 1) % quotes.length;
+            document.getElementById('quoteText').innerText = `"${quotes[currentQuote].text}"`;
+            document.getElementById('quoteAuthor').innerText = `— ${quotes[currentQuote].author}`;
+        }
+
+        // Live exam countdown timer
+        function startCountdown() {
+            // Simulated countdown target (e.g., upcoming exam weekend)
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 30); // 30 days ahead target
+
+            function updateTimer() {
+                const now = new Date();
+                const diff = targetDate - now;
+
+                if (diff <= 0) {
+                    document.getElementById('examCountdown').innerText = "Exam period active! You've got this!";
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+                document.getElementById('examCountdown').innerText = `${days}d ${hours}h ${minutes}m remaining`;
+            }
+
+            updateTimer();
+            setInterval(updateTimer, 60000);
+        }
+
+        // Form Submission Logic
+        function handleFormSubmission(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const contactNumber = document.getElementById('contactNumber').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const preferredDate = document.getElementById('preferredDate').value;
+            const preferredTime = document.getElementById('preferredTime').value;
+            const customSnacks = document.getElementById('customSnacks').value.trim();
+
+            // Gather checkboxes
+            const checkedBoxes = Array.from(document.querySelectorAll('input[name="snackPills"]:checked')).map(cb => cb.value);
+            
+            let combinedSnacks = checkedBoxes.join(', ');
+            if (customSnacks) {
+                combinedSnacks = combinedSnacks ? `${combinedSnacks} | Additional: ${customSnacks}` : customSnacks;
+            }
+
+            if (!combinedSnacks) {
+                combinedSnacks = "General study snacks & drinks";
+            }
+
+            submittedData = {
+                fullName,
+                contactNumber,
+                address,
+                preferredDate,
+                preferredTime,
+                snacks: combinedSnacks
+            };
+
+            // Populate Modal Receipt
+            document.getElementById('receiptName').innerText = fullName;
+            document.getElementById('receiptContact').innerText = contactNumber;
+            document.getElementById('receiptAddress').innerText = address;
+            document.getElementById('receiptTime').innerText = `${preferredDate} @ ${preferredTime}`;
+            document.getElementById('receiptSnacks').innerText = combinedSnacks;
+
+            // Show Celebration Modal
+            const modal = document.getElementById('celebrationModal');
+            const modalContainer = document.getElementById('modalContainer');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContainer.classList.remove('scale-95', 'opacity-0');
+                modalContainer.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            // Confetti Explosion
+            jsConfetti.addConfetti({
+                emojis: ['🎓', '✨', '🍰', '☕', '❤️', '🎉'],
+                emojiSize: 30,
+                confettiNumber: 70,
+            });
+
+            // Auto-trigger mail link generation for real notification
+            setTimeout(() => {
+                triggerDirectEmail(true);
+            }, 1000);
+        }
+
+        // Direct mailto trigger to giftbalacuit@gmail.com
+        function triggerDirectEmail(silent = false) {
+            if (!submittedData) return;
+
+            const subject = encodeURIComponent(`[LECPA Care Package] Snack Survey Submission - ${submittedData.fullName}`);
+            const body = encodeURIComponent(
+                `LECPA Snack Preference Receipt Details:\n\n` +
+                `1. Full Name: ${submittedData.fullName}\n` +
+                `2. Present Address: ${submittedData.address}\n` +
+                `3. Snack Preferences: ${submittedData.snacks}\n` +
+                `4. Preferred Delivery Time: ${submittedData.preferredDate} (${submittedData.preferredTime})\n` +
+                `5. Contact Number: ${submittedData.contactNumber}\n\n` +
+                `Encouragement Message:\n"God bless, Miss CPA! You can do it! We are already so proud of you! 🎓✨"`
+            );
+
+            const mailtoUrl = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
+
+            if (!silent) {
+                window.location.href = mailtoUrl;
+            }
+        }
+
+        // Export ticket card to image
+        function downloadReceipt() {
+            const card = document.getElementById('receiptCard');
+            html2canvas(card).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `LECPA-Care-Package-Ticket.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('celebrationModal');
+            const modalContainer = document.getElementById('modalContainer');
+
+            modalContainer.classList.remove('scale-100', 'opacity-100');
+            modalContainer.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review Season Favorites ♡</title>
+
+<style>
+:root {
+  --pink: #f5dce5;
+  --rose: #b85d79;
+  --dark: #61384a;
+  --cream: #fffaf7;
+  --lavender: #eee8f7;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 25px 14px;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  color: var(--dark);
+  background: linear-gradient(140deg, #fff1f5, #f1ebfa, #fff8ef);
+}
+
+.card {
+  max-width: 660px;
+  margin: auto;
+  padding: clamp(22px, 5vw, 40px);
+  background: var(--cream);
+  border: 1px solid #f0d8e1;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px #75445718;
+}
+
+.topline {
+  text-align: center;
+  color: var(--rose);
+  letter-spacing: 2px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+h1 {
+  text-align: center;
+  font-family: Georgia, serif;
+  font-size: clamp(30px, 6vw, 42px);
+  margin: 16px 0;
+}
+
+.intro {
+  text-align: center;
+  line-height: 1.8;
+  color: #806c75;
+  margin-bottom: 28px;
+}
+
+form { display: grid; gap: 20px; }
+.field { display: grid; gap: 8px; }
+
+label, legend {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.hint {
+  font-size: 12px;
+  color: #927c87;
+  font-weight: normal;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #e6cbd6;
+  border-radius: 12px;
+  background: white;
+  color: var(--dark);
+  font: inherit;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid #e8b6c9;
+}
+
+fieldset {
+  border: 1px solid #e6cbd6;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  background: white;
+  border: 1px solid #f0dce4;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.choice input {
+  width: auto;
+  accent-color: var(--rose);
+  flex-shrink: 0;
+}
+
+.note {
+  background: var(--lavender);
+  padding: 14px;
+  border-radius: 12px;
+  color: #655574;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+button {
+  border: 0;
+  border-radius: 30px;
+  padding: 15px;
+  background: var(--rose);
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled { opacity: .6; }
+
+.privacy {
+  text-align: center;
+  color: #927c87;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.hidden { display: none !important; }
+
+#success {
+  text-align: center;
+  padding: 12px 0;
+}
+
+.emoji { font-size: 45px; }
+
+#success h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(28px, 5vw, 38px);
+}
+
+#success p {
+  line-height: 1.9;
+  color: #806c75;
+}
+
+.signoff {
+  color: var(--rose) !important;
+  font-weight: bold;
+  margin-top: 25px;
+}
+
+footer {
+  text-align: center;
+  color: #927c87;
+  font-size: 12px;
+  padding-top: 20px;
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+
+<section id="survey">
+
+  <div class="topline">a little check-in for review season ♡</div>
+
+  <h1>Your Review Season Favorites</h1>
+
+  <p class="intro">
+    Review season can be a lot, so we're curious about your
+    little favorites and study-day essentials! ♡
+    Answer these quick questions about your snack preferences
+    and what makes your review days a little better.
+  </p>
+
+  <form id="favoritesForm">
+
+    <div class="field">
+      <label for="name">1. What should we call you?</label>
+      <input id="name" name="Name" required
+             placeholder="Your full name" autocomplete="name">
+    </div>
+
+    <div class="field">
+      <label for="address">
+        2. Where are you currently staying during review season?
+      </label>
+      <textarea id="address" name="Present Address"
+                rows="2" required
+                placeholder="Present address or current location"
+                autocomplete="street-address"></textarea>
+    </div>
+
+    <fieldset>
+      <legend>3. What are your go-to review snacks?</legend>
+      <p class="hint">
+        Choose all that sound good while studying!
+      </p>
+
+      <div class="choices">
+
+        <label class="choice">
+          <input type="checkbox" name="Review Snacks" value="Chips">
+          Chips and savory snacks
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Snacks" value="Chocolate">
+          Chocolates and sweets
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Snacks" value="Cookies">
+          Cookies and biscuits
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Snacks" value="Bread and pastries">
+          Bread and pastries
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Snacks" value="Candies">
+          Candies and gummies
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Snacks" value="Instant noodles">
+          Instant noodles
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Snacks" value="Fruits">
+          Fruits and healthier snacks
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Snacks" value="Coffee">
+          Coffee
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Snacks" value="Milk tea">
+          Milk tea and iced drinks
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Snacks" value="Juice">
+          Juice and refreshing drinks
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Snacks" value="Fast food">
+          Fast food favorites
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Snacks" value="Anything">
+          Anything edible, honestly 😭
+        </label>
+
+      </div>
+
+      <div class="field" style="margin-top:14px">
+        <label for="specific">
+          Any specific snacks, brands, or drinks you love?
+          <span class="hint">Optional</span>
+        </label>
+        <textarea id="specific" name="Specific Favorites"
+                  rows="2"
+                  placeholder="Your exact cravings, favorite flavors, etc."></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. What helps you survive long review days?</legend>
+      <p class="hint">Choose as many as you like!</p>
+
+      <div class="choices">
+
+        <label class="choice">
+          <input type="checkbox" name="Review Essentials" value="Coffee">
+          A good cup of coffee
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Essentials" value="Sweet treats">
+          Something sweet
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Essentials" value="Comfort food">
+          Comfort food
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Essentials" value="Cold drinks">
+          Cold drinks
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Essentials" value="Encouraging messages">
+          Little words of encouragement
+        </label>
+
+        <label class="choice">
+          <input type="checkbox" name="Review Essentials" value="Surprise treats">
+          Unexpected little treats
+        </label>
+
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label for="date">
+        5. Which date would usually work best for you?
+      </label>
+      <input id="date" name="Preferred Date" type="date" required>
+    </div>
+
+    <div class="field">
+      <label for="time">
+        What time are you usually available?
+      </label>
+      <select id="time" name="Preferred Time" required>
+        <option value="">Choose your usual availability</option>
+        <option>Early morning</option>
+        <option>Late morning</option>
+        <option>Lunch time</option>
+        <option>Afternoon</option>
+        <option>Early evening</option>
+        <option>Late evening</option>
+        <option>My schedule changes every day</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="contact">
+        6. What's the best contact number to reach you?
+      </label>
+      <input id="contact" name="Contact Number" type="tel"
+             required placeholder="09XX XXX XXXX"
+             autocomplete="tel">
+    </div>
+
+    <div class="note">
+      ♡ Thank you for answering! We know review season can be
+      exhausting, so we hope you get enough rest, stay hydrated,
+      and remember to take little breaks, too. You've got this!
+    </div>
+
+    <button id="submitBtn" type="submit">
+      Submit my answers ♡
+    </button>
+
+    <div class="privacy">
+      Please double-check your answers before submitting.
+    </div>
+
+  </form>
+</section>
+
+<section id="success" class="hidden" aria-live="polite">
+
+  <div class="emoji">💗✨🫶</div>
+
+  <h2>God bless, Miss CPA!</h2>
+
+  <p>
+    We know this season hasn't been easy. There are long hours,
+    countless topics to remember, practice questions that make
+    you question everything, and days when you might feel like
+    you're not doing enough. But please remember that every
+    little effort counts, even on the days when studying feels
+    harder than usual.
+  </p>
+
+  <p>
+    As you prepare for the LECPA, may God give you a peaceful
+    heart, a clear mind, strength when you're exhausted, and
+    confidence in everything you've worked so hard to learn.
+    May He guide you through every question and remind you
+    that you don't have to be perfect to do something amazing.
+  </p>
+
+  <p>
+    And please, don't forget to eat, drink water, rest, and
+    be kind to yourself. You deserve little treats, happy
+    moments, and breaks without guilt. Your worth is so much
+    bigger than one examination, and no result could ever
+    change how proud we are of you.
+  </p>
+
+  <p>
+    We are already so, so proud of you. Proud of your hard work,
+    your perseverance, and the person you continue to become.
+    Whatever happens, you'll never have to face this season
+    without people cheering for you. Take it one day and one
+    question at a time. Do your best, trust God's plans,
+    and leave the rest to Him.
+  </p>
+
+  <p>
+    Rooting for you always, future CPA! We believe in you
+    more than you know. Now go conquer that review season,
+    one snack break at a time. ♡
+  </p>
+
+  <p class="signoff">
+    With all our love,<br>
+    Your Manipulative Sadghorls 💗
+  </p>
+
+</section>
+</div>
+
+<footer>
+made with love, prayers, and a little bit of girlhood ♡
+</footer>
+
+<script>
+const form = document.getElementById("favoritesForm");
+const submitBtn = document.getElementById("submitBtn");
+
+form.addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  if (!form.reportValidity()) return;
+
+  const data = new FormData(form);
+  const payload = {};
+
+  for (const [key, value] of data.entries()) {
+    if (payload[key]) {
+      payload[key] = Array.isArray(payload[key])
+        ? [...payload[key], value]
+        : [payload[key], value];
+    } else {
+      payload[key] = value;
+    }
+  }
+
+  payload._subject = "New LECPA Review Season Survey Response";
+  payload._template = "table";
+  payload._captcha = "false";
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Submitting... ♡";
+
+  try {
+    const response = await fetch(
+      "https://formsubmit.co/ajax/giftbalacuit@gmail.com",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    const result = await response.json();
+
+    if (response.ok &&
+        (result.success === true || result.success === "true")) {
+
+      document.getElementById("survey").classList.add("hidden");
+      document.getElementById("success").classList.remove("hidden");
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+    } else {
+      throw new Error("Submission was not confirmed.");
+    }
+
+  } catch (error) {
+    alert(
+      "Your answers could not be sent right now. Please check your connection and try again."
+    );
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Submit my answers ♡";
+  }
+});
+</script>
+
+</body>
+</html>
